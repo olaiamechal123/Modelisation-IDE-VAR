@@ -1,0 +1,5 @@
+"0","ggplot(bd, aes(y = taille.du.marche)) +"
+"0","  geom_boxplot(fill = ""#00AFBB"", color = ""#2c3e50"", outlier.colour = ""red"", outlier.size = 3) +"
+"0","  labs(title = ""Détection des outliers - Taille du marche"","
+"0","       y = ""Taille du marche"") +"
+"0","  theme_minimal()"

@@ -1,0 +1,3 @@
+bd <- read.csv2("dataset_final.csv", fileEncoding = "latin1")
+
+summary(bd)

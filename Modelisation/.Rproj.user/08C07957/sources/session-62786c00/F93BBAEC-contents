@@ -1,0 +1,10 @@
+library(corrplot)  
+library(readr)
+library(readxl)
+
+df <- read_excel("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/dataset_final.xlsx")
+
+
+   
+
+

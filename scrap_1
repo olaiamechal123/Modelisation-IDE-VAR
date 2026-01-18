@@ -1,0 +1,23 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+
+url = 'https://donnees.banquemondiale.org/pays'
+
+page = requests.get(url)
+
+soup = BeautifulSoup(page.content,'html.parser')
+tous_lien = soup.select('li>a')
+domaine = "https://donnees.banquemondiale.org"
+liens_pays = []
+for i in range(len(tous_lien)):
+    x=domaine+tous_lien[i]['href']
+    if "/pays/" in x:
+        liens_pays.append(x)
+r2 =requests.get(liens_pays[74])
+soup2 = BeautifulSoup(r2.content,'html.parser')
+e= soup2.select('p>a')[4]['href']
+print(e)
+df = pd.read_excel('https://api.worldbank.org/v2/fr/country/FRA?downloadformat=excel',skiprows=3)
+df.to_excel('C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/data.xlsx')

@@ -1,0 +1,5 @@
+"0","ggplot(bd, aes(y = bd$Ouverture.Commerciale)) +"
+"0","  geom_boxplot(fill = ""#00AFBB"", color = ""#2c3e50"", outlier.colour = ""red"", outlier.size = 3) +"
+"0","  labs(title = ""Détection des outliers - Ouverture Commerciale"","
+"0","       y = ""Ouverture Commerciale"") +"
+"0","  theme_minimal()"

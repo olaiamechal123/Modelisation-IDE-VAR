@@ -1,0 +1,204 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code.
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*.
+
+```{bd <-bd <- read.csv2("dataset_final.csv", fileEncoding = "latin1")}
+```
+
+```{r}
+bd
+```
+
+```{r}
+summary(bd)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+ggplot(bd, aes(y = taille.du.marche)) +
+  geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+  labs(title = "Détection des outliers - Taille du marche",
+       y = "Taille du marche") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(bd, aes(y = Croissance.Economique)) +
+  geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+  labs(title = "Détection des outliers - Croissance Economique",
+       y = "Croissance Economique") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(bd, aes(y = Inflation)) +
+  geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+  labs(title = "Détection des outliers - Inflation",
+       y = "Inflation") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(bd, aes(y = bd$Taux.de.change)) +
+  geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+  labs(title = "Détection des outliers - Taux de change",
+       y = "taux de change") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(bd, aes(y = bd$TSalaire.Moyen)) +
+  geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+  labs(title = "Détection des outliers - Salaire Moyen",
+       y = "Salaire Moyen") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(bd, aes(y = bd$Ouverture.Commerciale)) +
+  geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+  labs(title = "Détection des outliers - Ouverture Commerciale",
+       y = "Ouverture Commerciale") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(bd, aes(y = bd$IDE)) +
+  geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+  labs(title = "Détection des outliers - IDE",
+       y = "IDE") +
+  theme_minimal()
+```
+
+```{r}
+library(corrplot)
+```
+
+```{r}
+numeriques <- bd[, sapply(bd, is.numeric)]
+cor_matrix <- cor(numeriques, use = "complete.obs")
+corrplot(cor_matrix, method = "color", type = "upper", 
+         tl.cex = 0.8, addCoef.col = "black", number.cex = 0.7,
+         col = colorRampPalette(c("tomato", "white", "navy"))(200))
+```
+
+Dans la matrice de corrélation, la variable dépendante IDE présente une corrélation négative avec le taux de change, ainsi qu'une corrélation faiblement négative avec la croissance économique. À l’inverse, elle affiche une corrélation positive avec la taille du marché, l’ouverture commerciale et le salaire moyen.
+
+***Analyse économétrique des déterminants des investissements directs étrangers (IDE) par les méthodes de séries chronologiques***
+
+```{r}
+library(tseries)
+
+# Tes séries (tu as déjà fait ça)
+bd_ts <- ts(bd[, c("IDE", "taille.du.marche", "Croissance.Economique", 
+                   "Ouverture.Commerciale", "Inflation", "Taux.de.change", 
+                   "TSalaire.Moyen")],
+            start = min(bd$Année), frequency = 1)
+
+
+```
+
+```{r}
+# Test ADF sur toutes les variables en même temps
+adf_results_niveau <- lapply(bd_ts, adf.test)
+
+# Affichage clair
+cat("\n=== Résultats ADF - NIVEAU ===\n\n")
+for (var in names(adf_results_niveau)) {
+  cat("Variable :", var, "\n")
+  print(adf_results_niveau[[var]])
+  cat("--------------------------------------------------\n")
+}
+```
+
+Après les tests de stationnarité, seule la variable « taux de change » est stationnaire. La croissance économique est quasi-stationnaire, tandis que les autres variables ne le sont pas (p-value \> 0,05)
+
+**la différenciation:**
+
+```{r}
+taille_du_marche <- diff(bd_ts[, "taille.du.marche"], lag = 1, differences = 1)
+IDE <- diff(bd_ts[, "IDE"], lag = 1, differences = 1)
+Salaire_Moyen <- diff(bd_ts[, "TSalaire.Moyen"], lag = 1, differences = 1)
+Ouverture_Commerciale <- diff(bd_ts[, "Ouverture.Commerciale"], lag = 1, differences = 1)
+Inflation <- diff(bd_ts[, "Inflation"], lag = 1, differences = 1)
+taux_change    <- bd_ts[, "Taux.de.change"]      
+Croissance_eco <- diff(bd_ts[, "Croissance.Economique"], lag = 1, differences = 1) 
+
+bd_ts_diff <- ts.union(
+  taille_du_marche = taille_du_marche,
+  IDE              = IDE,
+  Salaire_Moyen    = Salaire_Moyen,
+  Ouverture_Commerciale = Ouverture_Commerciale,
+  Inflation        = Inflation,
+  taux_change      = taux_change[-1],           
+  croissance_eco   = Croissance_eco       
+)
+bd_ts_diff
+
+
+```
+
+```{r}
+# Test ADF sur toutes les variables en même temps
+adf_results_niveau_diff <- lapply(bd_ts_diff, adf.test)
+
+# Affichage clair
+cat("\n=== Résultats ADF - NIVEAU ===\n\n")
+for (var in names(adf_results_niveau_diff)) {
+  cat("Variable :", var, "\n")
+  print(adf_results_niveau_diff[[var]])
+  cat("--------------------------------------------------\n")
+}
+```
+
+**Détermination du nombre de retards : combien de périodes doit-on inclure dans le modèle VAR pour expliquer les variables ?**
+
+```{r}
+library(vars)
+lag_select <- VARselect(
+  y          = bd_ts_diff,          
+  lag.max    = 3,                    
+  type       = "const",             
+  season     = NULL
+)
+lag_select$selection
+lag_optimal_bic <- lag_select$selection["SC(n)"]
+lag_optimal_bic
+```
+
+```{r}
+#normalisation des variables 
+bd_ts_diff_std <- scale(bd_ts_diff)     
+apply(bd_ts_diff_std, 2, sd)
+# le modele var
+var_modele_std <- VAR(bd_ts_diff_std, p = 3, type = "const")
+summary(var_modele_std)
+```
+
+Le modèle VAR avec 3 retards explique environ 60 % de la variance de l’IDE (R² = 0.6005), avec un ajustement global significatif (p = 0.0027). L’ouverture commerciale au lag 3 exerce un effet négatif fort et très significatif (-0.685, p = 0.006), ce qui contredit l’attente théorique classique. Les autres effets notables (persistance négative de l’IDE au lag 2, croissance et salaire au lag 2-3) restent faibles ou marginaux et présentent souvent des signes contraires à la littérature sur les déterminants des IDE.
+
+***Validation du modèle** :*
+
+```{r}
+serial.test(var_modele_std, lags.pt = 12, type = "PT.asymptotic")
+normality.test(var_modele_std)
+
+```
+
+Les tests de diagnostic confirment la validité globale du modèle VAR : absence d’autocorrélation sérielle (Portmanteau p = 0.1141) et normalité multivariée non rejetée (Jarque-Bera p = 0.3886). L’asymétrie est inexistante (p = 0.916), seul le kurtosis montre une légère indication de queues épaisses (p ≈ 0.094), ce qui reste acceptable en données macroéconomiques. Le modèle est donc bien spécifié et fiable pour procéder à l’analyse des IRF et de la décomposition de la variance.
+
+```{r}
+
+```
+
+```{r}
+
+```

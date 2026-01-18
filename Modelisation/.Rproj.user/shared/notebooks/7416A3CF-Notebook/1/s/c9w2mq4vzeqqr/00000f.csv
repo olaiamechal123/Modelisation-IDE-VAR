@@ -1,0 +1,5 @@
+"0","numeriques <- bd[, sapply(bd, is.numeric)]"
+"0","cor_matrix <- cor(numeriques, use = ""complete.obs"")"
+"0","corrplot(cor_matrix, method = ""color"", type = ""upper"", "
+"0","         tl.cex = 0.8, addCoef.col = ""black"", number.cex = 0.7,"
+"0","         col = colorRampPalette(c(""tomato"", ""white"", ""navy""))(200))"

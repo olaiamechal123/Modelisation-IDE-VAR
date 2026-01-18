@@ -1,0 +1,103 @@
+bd <- read.csv2("dataset_final.csv")
+bd
+bd
+bd <- read.csv2("dataset_final.csv")
+bd
+bd
+bd
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+bd <- read.csv2("dataset_final.csv")
+bd <- read.csv2("dataset_final.csv",
+fileEncoding = "latin1")
+bd
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+bd
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+head(bd)
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+dim(bd)
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+bd$taille.du.marche
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+mean(bd)
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+mean(bd$taille.du.marche)
+source("C:/Users/HP/Downloads/Autoformations/price_ecommerce_scraping/scraping/modelisation_IDE_scraping/Modelisation/modelisation.R")
+summary(bd)
+bd
+summary(bd)
+library(tidyr)
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(bd, aes(y = bd$salaire)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Taille du marche",
+y = "Salaire (MAD)") +
+theme_minimal()
+ggplot(bd, aes(y = bd$taille.du.marche)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Taille du marche",
+y = "Taille du marche") +
+theme_minimal()
+ggplot(bd, aes(y = taille.du.marche)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Taille du marche",
+y = "Taille du marche") +
+theme_minimal()
+ggplot(bd, aes(y = bd$Croissance.Economique)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Croissance Economique",
+y = "Croissance Economique") +
+theme_minimal()
+ggplot(bd, aes(y = Croissance.Economique)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Croissance Economique",
+y = "Croissance Economique") +
+theme_minimal()
+ggplot(bd, aes(y = bd$Inflation)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Inflation",
+y = "Inflation") +
+theme_minimal()
+ggplot(bd, aes(y = Inflation)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Inflation",
+y = "Inflation") +
+theme_minimal()
+ggplot(bd, aes(y = bd$Taux.de.change)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Taux de change",
+y = "Taux de change") +
+theme_minimal()
+ggplot(bd, aes(y = bd$TSalaire.Moyen)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Salaire Moyen",
+y = "Salaire Moyen") +
+theme_minimal()
+ggplot(bd, aes(y = bd$Ouverture.Commerciale)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - Ouverture Commerciale",
+y = "Ouverture Commerciale") +
+theme_minimal()
+ggplot(bd, aes(y = bd$IDE)) +
+geom_boxplot(fill = "#00AFBB", color = "#2c3e50", outlier.colour = "red", outlier.size = 3) +
+labs(title = "Détection des outliers - IDE",
+y = "IDE") +
+theme_minimal()
+library(corrplot)
+numeriques <- bd[, sapply(bd, is.numeric)]
+cor_matrix <- cor(numeriques, use = "complete.obs")
+corrplot(cor_matrix, method = "color", type = "upper",
+tl.cex = 0.8, addCoef.col = "black", number.cex = 0.7,
+col = colorRampPalette(c("tomato", "white", "navy"))(200))
+library(tsibble)
+install.packages("tsibble")
+library(tsibble)
+library(fable)
+install.packages("fable")
+install.packages("feasts")
+library(tsibble)
+library(fable)
+library(feasts)

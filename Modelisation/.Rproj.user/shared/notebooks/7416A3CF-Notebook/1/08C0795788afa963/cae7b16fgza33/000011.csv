@@ -1,0 +1,4 @@
+"0","library(tsibble)"
+"0","library(fable)"
+"2","Erreur dans library(fable) : aucun package nommé ‘fable’ n'est trouvé
+"

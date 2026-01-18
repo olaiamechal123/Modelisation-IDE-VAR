@@ -1,0 +1,140 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_excel(r'C:\Users\HP\Downloads\Autoformations\price_ecommerce_scraping\scraping\modelisation_IDE_scraping\data.xlsx')
+df = df.drop(columns=['Country Name','Country Code','Indicator Code'])
+# taille du marche
+Taille = df.loc[df['Indicator Name'] == "PIB ($ US courants)"]
+#annees = [col for col in df.columns if col.isdigit()]
+Taille = Taille.drop(columns=['index'])
+annees = Taille.columns[1:]
+print(annees)
+valeurs = Taille.iloc[0, 1:].values
+df_1 = pd.DataFrame({
+    'Année': annees,
+    'taille du marche': valeurs
+})
+#croissance economique
+Croissance = df.loc[df['Indicator Name'] == "Croissance du PIB (% annuel)"]
+Croissance = Croissance.drop(columns=['index'])
+valeurs1 = Croissance.iloc[0, 1:].values
+annees = Croissance.columns[1:]
+df_2 = pd.DataFrame({
+    'Année': annees,
+    'Croissance Economique': valeurs1
+})
+
+# ouverture commerciale
+ouverture = df.loc[df['Indicator Name'] == "Commerce de marchandises (% du PIB)"]
+ouverture = ouverture.drop(columns=['index'])
+valeurs2 = ouverture.iloc[0, 1:].values
+annees =ouverture.columns[1:]
+df_3 = pd.DataFrame({
+    'Année': annees,
+    'Ouverture Commerciale': valeurs2
+})
+
+# inflation
+inflation = df.loc[df['Indicator Name'] == "Inflation, prix à la consommation (% annuel)"]
+inflation = inflation.drop(columns=['index'])
+valeurs3 = inflation.iloc[0, 1:].values
+annees = inflation.columns[1:]
+df_4 = pd.DataFrame({
+    'Année': annees,
+    'Inflation': valeurs3
+})
+
+
+# taux de change reel
+taux = df.loc[df['Indicator Name'] == "Indice du taux de change réel effectif (2010=100)"]
+taux= taux.drop(columns=['index'])
+valeurs4 =taux.iloc[0, 1:].values
+annees = taux.columns[1:]
+df_5 = pd.DataFrame({
+    'Année': annees,
+    'Taux de change': valeurs4
+})
+
+#salaire moyen
+salaire = df.loc[df['Indicator Name'] == "RNB par habitant, méthode Atlas ($ US courants)"]
+salaire= salaire.drop(columns=['index'])
+valeurs5 =salaire.iloc[0, 1:].values
+annees = salaire.columns[1:]
+df_6 = pd.DataFrame({
+    'Année': annees,
+    'TSalaire Moyen': valeurs5
+})
+
+IDE = df.loc[df['Indicator Name'] == "Investissements étrangers directs, entrées nettes (BDP, $ US courants)"]
+IDE = IDE.drop(columns=['index'])
+valeurs6 = IDE.iloc[0, 1:].values
+annees = IDE.columns[1:]
+df_7 = pd.DataFrame({
+    'Année': annees,
+    'IDE': valeurs6
+})
+print(df_7)
+
+# jointure data final
+
+
+df_final = (
+    df_1.merge(df_2, on='Année', how='left')
+       .merge(df_3, on='Année', how='left')
+       .merge(df_4, on='Année', how='left')
+       .merge(df_5, on='Année', how='left')
+       .merge(df_6, on='Année', how='left')
+       .merge(df_7, on='Année', how='left')
+)
+
+
+
+# les informations sur dataset 
+print(df_final.info)
+df_final['Année'] = df_final['Année'].astype(int)
+df_final['taille du marche'] = df_final['taille du marche'].astype(float)
+df_final['Ouverture Commerciale'] = df_final['Ouverture Commerciale'].astype(float)
+df_final['Inflation'] = df_final['Inflation'].astype(float)
+df_final['Taux de change'] = df_final['Taux de change'].astype(float)
+df_final['Croissance Economique'] = df_final['Croissance Economique'].astype(float)
+df_final['TSalaire Moyen'] = df_final['TSalaire Moyen'].astype(float)
+df_final['IDE'] = df_final['IDE'].astype(float)
+# traitement des valeurs manquantes
+print(df_final.isna().sum())
+df_final['Taux de change'] = df_final['Taux de change'].ffill().bfill()
+moyenne_croissance = df_final['Croissance Economique'].mean()
+df_final['Croissance Economique'] = df_final['Croissance Economique'].fillna(moyenne_croissance)
+moyenne= df_final['TSalaire Moyen'].mean()
+df_final['TSalaire Moyen'] = df_final['TSalaire Moyen'].fillna(moyenne)
+df_final['IDE'] = df_final['IDE'].ffill().bfill()
+print(df_final.isna().sum())
+
+# description de donnees
+print(df_final.describe())
+
+# detection des valeurs abberantes de facon visuelle plus efficace
+#colonnes = ['Croissance Economique','Taux de change','Inflation','Ouverture Commerciale', 'TSalaire Moyen','taille du marche']
+
+#df_final[colonnes].boxplot(figsize=(10, 6))
+#plt.title('Boxplots multiples des variables macroéconomiques')
+#plt.xticks(rotation=45, ha='right')  
+#plt.tight_layout()                  
+#plt.show()
+# la visualisation montre que il ya des valeurs abberantes et il ya dans quelque colonnes mais rares
+# Option 1 : avec pandas + openpyxl (le plus courant)
+df_final.to_excel(
+    r'C:\Users\HP\Downloads\Autoformations\price_ecommerce_scraping\scraping\modelisation_IDE_scraping\dataset_final.xlsx',
+    index=False,
+    engine='openpyxl'          # recommandé et généralement déjà installé avec pandas
+)
+
+
+
+
+
+
+
+
+
+

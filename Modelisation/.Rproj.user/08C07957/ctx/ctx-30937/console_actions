@@ -1,0 +1,30 @@
+{
+    "type": [
+        2,
+        2,
+        0,
+        1,
+        2,
+        0,
+        1,
+        2,
+        0,
+        1,
+        0,
+        2
+    ],
+    "data": [
+        "\nR version 4.5.2 (2025-10-31 ucrt) -- \"[Not] Part in a Rumble\"\nCopyright (C) 2025 The R Foundation for Statistical Computing\nPlatform: x86_64-w64-mingw32/x64\n\nR est un logiciel libre livré sans AUCUNE GARANTIE.\nVous pouvez le redistribuer sous certaines conditions.\nTapez 'license()' ou 'licence()' pour plus de détails.\n\nR est un projet collaboratif avec de nombreux contributeurs.\nTapez 'contributors()' pour plus d'information et\n'citation()' pour la façon de le citer dans les publications.\n\nTapez 'demo()",
+        "' pour des démonstrations, 'help()' pour l'aide\nen ligne ou 'help.start()' pour obtenir l'aide au format HTML.\nTapez 'q()' pour quitter R.\n\n",
+        "> ",
+        "library(tsibble)",
+        "\u001BG3;Registered S3 method overwritten by 'tsibble':\n  method               from \n  as_tibble.grouped_df dplyr\n\u001Bg\u001BG3;\nAttachement du package : ‘tsibble’\n\n\u001Bg\u001BG3;Les objets suivants sont masqués depuis ‘package:base’:\n\n    intersect, setdiff, union\n\n\u001Bg",
+        "> ",
+        "library(fable)",
+        "\u001BG3;Le chargement a nécessité le package : fabletools\n\u001Bg",
+        "> ",
+        "library(feasts)",
+        "> ",
+        "\u001BG3;Restarting R session...\u001Bg"
+    ]
+}

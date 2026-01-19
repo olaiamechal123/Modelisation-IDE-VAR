@@ -50,38 +50,23 @@ On utilise **pandas** pour :
 -  enfin, stocker ce DataFrame dans un fichier Excel.
   
   Ces étapes sont réalisées dans le fichier [Data_Preparation](https://github.com/olaiamechal123/Modelisation-IDE-VAR/blob/main/Data_Preparation.ipynb).
-## Modelisation
 
-Dans cette partie, les étapes suivantes ont été réalisées :
+## Modélisation
 
-1. **Détection graphique des valeurs aberrantes**  
-   Visualisation  pour identifier et analyser les outliers.
+Étapes réalisées :
 
-2. **Analyse de corrélation**  
-   Étude des corrélations entre les déterminants macroéconomiques et les flux d’**IDE** .
-
-3. **Transformation en série temporelle**  
-   Conversion du dataset en objets de type série chronologique avec le package `tseries` (R).
-
-4. **Test de stationnarité**  
-   Application du test **ADF**  sur chaque variable pour vérifier la stationnarité.
-
-5. **Différenciation**  
-   Différenciation d’ordre 1 des variables non stationnaires afin de les rendre stationnaires.
-
-6. **Choix du nombre de retards (lags)**  
-   Détermination du nombre optimal de retards via les critères d’information BIC.
-
-7. **Standardisation des variables**  
-   Centrage et réduction (standardisation) des séries pour la modélisation VAR.
-
-8. **Estimation du modèle VAR**  
-   Estimation du modèle Vector Autoregressive avec le package `vars` (R).
-
-9. **Validation du modèle**  
-   - Test de stabilité   
+1. Détection graphique des valeurs aberrantes (visualisation)  
+2. Analyse des corrélations entre IDE et déterminants macroéconomiques  
+3. Transformation du dataset en séries temporelles (`tseries` - R)  
+4. Test de stationnarité (test ADF)  
+5. Différenciation d’ordre 1 des variables non stationnaires  
+6. Sélection du nombre de retards (critère BIC)  
+7. Standardisation des variables (centrage-réduction)  
+8. Estimation du modèle VAR (`vars` - R)  
+9. Validation du modèle :
+   - Test de stabilité  
    - Test d’autocorrélation des résidus  
-   - Test de normalité des résidus 
+   - Test de normalité des résidus
 
  Ces étapes sont réalisées dans le notebook [Modelisation](https://github.com/olaiamechal123/Modelisation-IDE-VAR/blob/main/Modelisation/Notebook.Rmd).
 

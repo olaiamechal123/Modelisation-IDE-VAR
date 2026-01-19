@@ -7,7 +7,7 @@ Ce projet vise à modéliser les déterminants macroéconomiques des Investissem
 
 Examen des corrélations entre les flux d’IDE et leurs déterminants macroéconomiques potentiels.
 
-Analyse prédictive et dynamique des relations entre les IDE et ces déterminants à l’aide du cadre VAR (impulse responses, décomposition de la variance, causalité au sens de Granger, etc.).
+Analyse prédictive et dynamique des relations entre les IDE et ces déterminants à l’aide du cadre VAR .
 
 ## Outils et technologies utilisés
 
@@ -25,7 +25,7 @@ Analyse prédictive et dynamique des relations entre les IDE et ces déterminant
 
 ## collection de données
 
-Les données ont été collectées à partir du site https://donnees.banquemondiale.org. Nous avons utilisé la technique de web scraping avec la bibliothèque BeautifulSoup afin d’extraire automatiquement le fichier Excel
+Les données ont été collectées à partir du site https://donnees.banquemondiale.org. Nous avons utilisé la technique de web scraping avec la bibliothèque BeautifulSoup afin d’extraire automatiquement le fichier Excel [Data]https://github.com/olaiamechal123/Modelisation-IDE-VAR/blob/main/data.xlsx)
 
 ## Traitement des données
 
@@ -49,7 +49,7 @@ On utilise **pandas** pour :
 - détecter les valeurs manquantes et les traiter par la méthode de la moyenne et la méthode forward fill ;
 -  enfin, stocker ce DataFrame dans un fichier Excel.
   
-  Ces étapes sont réalisées dans le fichier [Data_Preparation](https://github.com/olaiamechal123/Modelisation-IDE-VAR/blob/main/Data_Preparation.ipynb).
+  Ces étapes sont réalisées dans le fichier [Data_Preparation](https://github.com/olaiamechal123/Modelisation-IDE-VAR/blob/main/Data_Preparation.ipynb) et Dataset final : [Data_Final](https://github.com/olaiamechal123/Modelisation-IDE-VAR/blob/main/dataset_final.xlsx) 
 
 ## Modélisation
 

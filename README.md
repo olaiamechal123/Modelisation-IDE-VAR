@@ -25,7 +25,7 @@ Analyse prédictive et dynamique des relations entre les IDE et ces déterminant
 
 ## collection de données
 
-Les données ont été collectées à partir du site https://donnees.banquemondiale.org. Nous avons utilisé la technique de web scraping avec la bibliothèque BeautifulSoup afin d’extraire automatiquement le fichier Excel [Data]https://github.com/olaiamechal123/Modelisation-IDE-VAR/blob/main/data.xlsx)
+Les données ont été collectées à partir du site https://donnees.banquemondiale.org. Nous avons utilisé la technique de web scraping avec la bibliothèque BeautifulSoup afin d’extraire automatiquement le fichier Excel [Data](https://github.com/olaiamechal123/Modelisation-IDE-VAR/blob/main/data.xlsx)
 
 ## Traitement des données
 
